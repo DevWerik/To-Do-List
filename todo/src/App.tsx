@@ -8,6 +8,7 @@ import spinner from "./assets/icons/Spinner.svg?react";
 import X from "./assets/icons/X.svg?react";
 import Badge from "./components/badge";
 import Button from "./components/button";
+import ButtonIcon from "./components/button-icon";
 
 
 export default function App() {
@@ -36,6 +37,11 @@ export default function App() {
 
       <div>
         <Button icon={Plus}>Nova tarefa</Button>
+      </div>
+      <div className="flex gap-1">
+        <ButtonIcon icon={Vector} />
+        <ButtonIcon icon={Vector} variant={"secondary"} />
+        <ButtonIcon icon={Vector} variant={"tertiary"} />
       </div>
     </div>
   );
