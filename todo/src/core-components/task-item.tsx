@@ -10,7 +10,7 @@ import Check from "../assets/icons/Check.svg?react";
 import InputText from "../components/input-text";
 import { TaskState, type Task } from "../models/task";
 import { cx } from "class-variance-authority";
-import { Form } from "react-router";
+import useTask from "../hooks/use.task";
 
 interface TaskItemProps {
   task: Task;
@@ -21,7 +21,8 @@ export default function TaskItem({ task }: TaskItemProps) {
     task?.state === TaskState.Creating
   );
 
-  const [taskTitle, setTaskTitle] = React.useState("");
+  const [taskTitle, setTaskTitle] = React.useState(task?.title || "");
+  const {updateTask} = useTask()
 
   function handleEditTask() {
     setIsEditing(true);
@@ -38,57 +39,56 @@ export default function TaskItem({ task }: TaskItemProps) {
   function handleSaveTask(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     console.log({id: task.id, title: taskTitle});
-    //Chamada para a função de atualizar o estado do task
+    updateTask(task.id, {title: taskTitle})
     setIsEditing(false);
   } 
 
   return (
-   
-      <Card size="md" >
-        {!isEditing ? (
-          <div className="flex items-center gap-4">
-            <InputChekbox
-              value={task?.concluded?.toString()}
-              checked={task?.concluded}
-            />
-            <Text
-              className={cx("flex-1", {
-                "line-through": task?.concluded,
-              })}
-            >
-              {" "}
-              {task?.title}{" "}
-            </Text>
-            <div className="flex gap-1">
-              <ButtonIcon type="button" icon={Vector} variant="tertiary" />
-              <ButtonIcon
+    <Card size="md">
+      {!isEditing ? (
+        <div className="flex items-center gap-4">
+          <InputChekbox
+            value={task?.concluded?.toString()}
+            checked={task?.concluded}
+          />
+          <Text
+            className={cx("flex-1", {
+              "line-through": task?.concluded,
+            })}
+          >
+            {" "}
+            {task?.title}{" "}
+          </Text>
+          <div className="flex gap-1">
+            <ButtonIcon type="button" icon={Vector} variant="tertiary" />
+            <ButtonIcon
               type="button"
-                icon={Pencil}
-                variant="tertiary"
-                onClick={handleEditTask}
-              />
-            </div>
-          </div>
-        ) : (
-          <form onSubmit={handleSaveTask} className="flex items-center gap-4">
-            <InputText
-              className="flex-1"
-              onChange={handleChangeTaskTitle}
-              required
-              autoFocus
+              icon={Pencil}
+              variant="tertiary"
+              onClick={handleEditTask}
             />
-            <div className="flex gap-1">
-              <ButtonIcon
-                typeof="button"
-                icon={X}
-                variant="secondary"
-                onClick={handleExitTask}
-              />
-              <ButtonIcon type="submit" icon={Check} variant="primary" />
-            </div>
-          </form>
-        )}
-      </Card>
-    
+          </div>
+        </div>
+      ) : (
+        <form onSubmit={handleSaveTask} className="flex items-center gap-4">
+          <InputText
+            value={taskTitle}
+            className="flex-1"
+            onChange={handleChangeTaskTitle}
+            required
+            autoFocus
+          />
+          <div className="flex gap-1">
+            <ButtonIcon
+              typeof="button"
+              icon={X}
+              variant="secondary"
+              onClick={handleExitTask}
+            />
+            <ButtonIcon type="submit" icon={Check} variant="primary" />
+          </div>
+        </form>
+      )}
+    </Card>
   );
 }
