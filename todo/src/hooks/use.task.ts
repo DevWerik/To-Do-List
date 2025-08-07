@@ -40,10 +40,14 @@ function updateTaskStatus(id: string, concluded: boolean) {
     );
   }
 
+  function deleteTask (id: string) {
+    setTask(task.filter((task) => task.id !== id))
+  }
 
   return {
     prepareTask,
     updateTask,
-    updateTaskStatus
+    updateTaskStatus,
+    deleteTask
   };
 }
