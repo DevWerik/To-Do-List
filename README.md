@@ -1,7 +1,13 @@
 # 📋 To-Do List Interativa
 
 Uma aplicação de lista de tarefas desenvolvida com **React**, **Vite** e **TypeScript**, que permite **adicionar, editar, remover e marcar tarefas como concluídas**.  
-O projeto foi criado para explorar **componentização**, **roteamento básico** e **emulação de requisições HTTP**.
+O objetivo deste projeto é explorar **componentização**, **roteamento básico** e **emulação de requisições HTTP**.
+
+---
+
+## 🎥 Preview
+
+![Demonstração da To-Do List](./src/assets/To-do.gif)
 
 ---
 
