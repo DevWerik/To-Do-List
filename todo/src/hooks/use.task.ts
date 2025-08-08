@@ -2,9 +2,13 @@ import useLocalStorage from "use-local-storage";
 import { TASKS_KEY } from "../models/task";
 import type { Task } from "../models/task";
 import { TaskState } from "../models/task";
+import { delay } from "../helpers/utils";
+import React from "react";
 
 export default function useTask() {
   const [task, setTask] = useLocalStorage<Task[]>(TASKS_KEY, []);
+  const [isUpdateTask, setIsUpdateTask] = React.useState(false);
+  const [isDeletingTask, setIsDeletingTask] = React.useState(false);
 
   function prepareTask() {
     setTask([
@@ -17,7 +21,11 @@ export default function useTask() {
     ]);
   }
 
-  function updateTask(id: string, payload: { title: Task["title"] }) {
+  async function updateTask(id: string, payload: { title: Task["title"] }) {
+    setIsUpdateTask(true);
+
+    await delay(1000);
+
     setTask(
       task.map((task) =>
         task.id === id
@@ -25,6 +33,7 @@ export default function useTask() {
           : task
       )
     );
+    setIsUpdateTask(false);
   }
 
 function updateTaskStatus(id: string, concluded: boolean) {
@@ -40,14 +49,20 @@ function updateTaskStatus(id: string, concluded: boolean) {
     );
   }
 
-  function deleteTask (id: string) {
+   async function deleteTask (id: string) {
+    setIsDeletingTask(true);
+    await delay(1000);
     setTask(task.filter((task) => task.id !== id))
+
+    setIsDeletingTask(false)
   }
 
   return {
     prepareTask,
     updateTask,
     updateTaskStatus,
-    deleteTask
+    deleteTask,
+    isUpdateTask,
+    isDeletingTask
   };
 }

@@ -44,12 +44,14 @@ export default function PageComponents() {
 
         <div>
           <Button icon={Plus}>Nova tarefa</Button>
+          <Button icon={Plus} handling>Criando...</Button>
         </div>
         <div className="flex gap-1">
           <ButtonIcon icon={Vector} />
           <ButtonIcon icon={Vector} variant={"secondary"} />
           <ButtonIcon icon={Vector} variant={"tertiary"} />
           <ButtonIcon icon={Vector} loading />
+          <ButtonIcon icon={Vector} handling />
         </div>
         <div>
           <InputText />
