@@ -7,7 +7,7 @@ O objetivo deste projeto é explorar **componentização**, **roteamento básico
 
 ## 🎥 Preview
 
-![Demonstração da To-Do List](./src/assets/To-do.gif)
+![Demonstração da To-Do List](src/assets/To-do.gif)
 
 ---
 
